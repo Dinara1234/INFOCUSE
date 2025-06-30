@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    ports:
+      - "5432:5432" # postgres port
+    env_file:
+      - database.env
+    networks:
+      - zen-network
+    volumes:
+      # Монтирование именованного тома db_data в директорию данных PostgreSQL внутри контейнера
+      - db_data_semestr:/var/lib/postgresql/data
+    healthcheck: # <-- ДОБАВЬТЕ ЭТУ СЕКЦИЮ
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+  app:
+    build:
+      dockerfile: ./Dockerfile
+    env_file:
+      - prod.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - zen-network
+
+networks:
+  zen-network:
+
+volumes:
+  db_data_semestr:
