@@ -40,6 +40,7 @@ public class UnsplashService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Client-ID " + accessKey);
+        System.out.println("Headers: " + headers);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 

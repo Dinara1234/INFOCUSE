@@ -3,6 +3,7 @@ package org.example.springsecurityrest.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.example.springsecurityrest.dto.PhotoSessionDto;
 import org.example.springsecurityrest.dto.PhotographerDetailsDto;
+import org.example.springsecurityrest.dto.PhotographerDto;
 import org.example.springsecurityrest.dto.request.UpdatePhotographerInfoRequest;
 import org.example.springsecurityrest.entity.Photo;
 import org.example.springsecurityrest.entity.PhotographerDetails;
@@ -22,12 +23,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PhotographerServiceImpl implements PhotographerService {
+
+
     private static final Logger log = LoggerFactory.getLogger(PhotographerServiceImpl.class);
     private final PhotographerRepository photographerRepository;
     private final PhotographerMapper photographerMapper;
@@ -36,6 +40,16 @@ public class PhotographerServiceImpl implements PhotographerService {
     private final PhotoRepository photoRepository;
     private final PhotoSessionRepository photoSessionRepository;
     private final PhotoSessionMapper photoSessionMapper;
+
+    @Override
+    public List<PhotographerDto> getAllPhotographers() {
+        return photographerRepository.findAll().stream().map(photographerMapper::toDtoForUsers).collect(Collectors.toList());
+    }
+
+    @Override
+    public PhotographerDto getPhotographerById(Long id) {
+        return photographerRepository.findById(id).map(photographerMapper::toDtoForUsers).orElse(null);
+    }
 
     @Override
     public PhotographerDetailsDto getPhotographerDetails(Authentication auth) {

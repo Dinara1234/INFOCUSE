@@ -1,21 +1,19 @@
 package org.example.springsecurityrest.api;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UnsplashPhotoUrls {
-    private String raw;
-    private String full;
-    private String regular;
-    private String small;
-    private String thumb;
+public class TopicSubmission {
 
-    @JsonProperty("small_s3")
-    private String smallS3;
+    private String status;
+
+    @JsonProperty("approved_on")
+    private String approvedOn; // может быть null, если статус не approved
 }

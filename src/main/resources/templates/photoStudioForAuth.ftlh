@@ -248,7 +248,7 @@
                     <#list photos as photo>
                         <div class="mySlides fade">
                             <div class="numbertext">${photo_index + 1} / ${photos?size}</div>
-                            <img src="${photo.getImageUrl()}" style="width:100%">
+                            <img src="${photo.getImageUrl()}">
                         </div>
                     </#list>
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>

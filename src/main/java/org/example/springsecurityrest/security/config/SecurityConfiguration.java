@@ -12,6 +12,15 @@ import org.springframework.security.web.SecurityFilterChain;
 //import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
 
 @Configuration
@@ -19,6 +28,15 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 //@EnableJdbcHttpSession
 public class SecurityConfiguration {
+
+//    @Bean
+//    public RestTemplate restTemplate() {
+//        CloseableHttpClient httpClient = HttpClients.custom()
+//                .setKeepAliveStrategy((response, context) -> 0)  // отключить Keep-Alive
+//                .build();
+//        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
+//        return new RestTemplate(factory);
+//    }
 
     @Bean
     public RestTemplate restTemplate() {

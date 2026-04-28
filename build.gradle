@@ -48,6 +48,18 @@ dependencies {
 	implementation 'software.amazon.awssdk:s3:2.31.54'
 	// https://mvnrepository.com/artifact/org.springframework.session/spring-session-jdbc
 //	implementation("org.springframework.session:spring-session-jdbc:2.6.1")
+
+	implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+
+
+	testImplementation 'org.seleniumhq.selenium:selenium-java:4.36.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
+
+	// Автоматическое управление драйвером Chrome
+	implementation 'io.github.bonigarcia:webdrivermanager:5.6.3'
+}
+test {
+	useJUnitPlatform()
 }
 
 tasks.named('test') {

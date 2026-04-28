@@ -23,3 +23,5 @@ public class UserController {
         return "userPhotoSessions";
     }
 }
+
+

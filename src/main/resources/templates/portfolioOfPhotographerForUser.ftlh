@@ -3,28 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фотостудия</title>
+    <title>Портфолио</title>
     <style>
         a {
             color: white;
             font-family: "Montserrat ExtraBold";
             text-decoration: none;
-        }
-        .header form input  {
-            background-color: #943939;
-            border: none;
-            color: white;
-            padding: 20px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            color: white;
-
-            font-size: 22px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-family: "Montserrat ExtraBold",  "Calibri";
         }
         .button-container button a{
             color: #943939;
@@ -76,7 +60,7 @@
 
         }
         .bordo_frame_in_container{
-            border: 7px solid #943939;
+
             background-color: #EBE7E3;
             padding: 20px;
             height: 72%;
@@ -140,7 +124,22 @@
         .prev:hover, .next:hover {
             background-color: rgba(0,0,0,0.8);
         }
+        .header form input  {
+            background-color: #943939;
+            border: none;
+            color: white;
+            padding: 20px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            color: white;
 
+            font-size: 22px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: "Montserrat ExtraBold",  "Calibri";
+        }
         .text {
             color: #f2f2f2;
             font-size: 15px;
@@ -158,6 +157,7 @@
             position: absolute;
             top: 0;
         }
+
 
         .dot {
             cursor: pointer;
@@ -194,6 +194,41 @@
             width: 50%;
             text-align: left;
         }
+        .date-nav { margin-bottom: 20px; }
+        .date-link {
+            margin-right: 15px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .date-link.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+        .slot-btn {
+            padding: 10px;
+            background-color: #943939;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .slot-btn:hover {
+            background-color: #c82333;
+        }
+        .no-slots {
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+        }
 
     </style>
 </head>
@@ -203,20 +238,19 @@
 <div class="container">
     <div class="bordo_frame_in_container">
         <div class="left_content">
-            <h1>Фотостудия на ${photoStudio.address}:</h1>
-            <h3>${photoStudio.title}</h3>
+            <h1>${photographer.lastName} ${photographer.firstName}</h1>
+            <h3>${photographer.title}</h3>
         </div>
 
         <div class="right_container">
             <div class="slideshow-container">
-                <#if photos?has_content>
-                    <#list photos as photo>
+                <#if photographer.photos?has_content>
+                    <#list photographer.photos as photo>
                         <div class="mySlides fade">
-                            <div class="numbertext">${photo_index + 1} / ${photos?size}</div>
+                            <div class="numbertext">${photo_index + 1} / ${photographer.photos?size}</div>
                             <img src="${photo.getImageUrl()}">
                         </div>
                     </#list>
-
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 <#else>
@@ -225,15 +259,18 @@
             </div>
             <br>
             <div style="text-align:center">
-                <#if photos?has_content>
-                    <#list photos as photo>
+                <#if photographer.photos?has_content>
+                    <#list photographer.photos as photo>
                         <span class="dot" onclick="currentSlide(${photo_index + 1})"></span>
                     </#list>
                 </#if>
             </div>
         </div>
     </div>
+
 </div>
+
+
 <script>
     var slideIndex = 1;
     showSlides(slideIndex);
@@ -261,6 +298,16 @@
         slides[slideIndex-1].style.display = "block";
         dots[slideIndex-1].className += " active";
     }
+
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

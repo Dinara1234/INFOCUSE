@@ -1,11 +1,28 @@
 <#import "/spring.ftl" as spring />
-
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница пользователя</title>
+    <title>Страница пользователя | InFocus</title>
+    <!-- Подключаем Montserrat для стиля ExtraBold -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --burgundy: #943939;
+            --beige: #EBE7E3;
+            --font-main: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--beige);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
         a {
             color: white;
             font-family: "Montserrat ExtraBold";
@@ -204,60 +221,174 @@
             margin: auto;
         }
 
+
+
+        /* Шапка из стиля пользователя */
+        .header {
+            background-color: var(--burgundy);
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: -1px;
+            font-size: 32px;
+        }
+
+        .header .logout-link {
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+        }
+
+        .header .logout-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Контейнер */
+        .container {
+            padding: 40px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Та самая бордовая рамка */
+        .bordo_frame_in_container {
+            border: 7px solid var(--burgundy);
+            background-color: var(--beige);
+            padding: 60px 40px;
+            width: 100%;
+            max-width: 1400px;
+            min-height: 500px;
+            display: flex;
+            position: relative;
+        }
+
+        .left_content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Контейнер кнопок - теперь вертикально слева */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start; /* Прижимаем влево */
+        }
+
+        .button-container button {
+            background-color: var(--beige);
+            border: 2px solid var(--burgundy);
+            padding: 0; /* Убираем падинг у кнопки, переносим на ссылку */
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            min-width: 300px; /* Одинаковая ширина для красоты */
+        }
+
+        .button-container button:hover {
+            background-color: var(--burgundy);
+        }
+
+        .button-container button a {
+            color: var(--burgundy);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800; /* ExtraBold */
+            text-decoration: none;
+            font-size: 20px;
+            display: block;
+            padding: 15px 30px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .button-container button:hover a {
+            color: white;
+        }
+
+        /* Текстовые заголовки внутри контента */
+        .welcome-text {
+            margin-bottom: 40px;
+        }
+
+        .welcome-text h4 {
+            color: var(--burgundy);
+            margin: 0;
+            font-weight: 900;
+            font-size: 42px;
+            text-transform: uppercase;
+        }
+
+        /* Декоративный элемент сбоку (опционально для красоты) */
+        .decorative-text {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            color: var(--burgundy);
+            opacity: 0.1;
+            font-size: 100px;
+            font-weight: 900;
+            pointer-events: none;
+            line-height: 1;
+        }
+
+        @media (max-width: 768px) {
+            .bordo_frame_in_container {
+                padding: 30px 20px;
+            }
+            .button-container button {
+                min-width: 100%;
+            }
+            .welcome-text h4 {
+                font-size: 30px;
+            }
+        }
     </style>
 </head>
 <body>
 <#include "headerForAuthorized.ftlh">
-
 <div class="container">
     <div class="bordo_frame_in_container">
         <div class="left_content">
+
+            <div class="welcome-text">
+                <h4>Личный кабинет</h4>
+            </div>
+
             <div class="button-container">
-                <button type="button">  <a href="/user/photoStudios">Фотостудии</a></button>
-                <button type="button">  <a href="/references">Вдохновение</a></button>
-                <button type="button">  <a href="/user/photoSessions">Мои фотосессии</a></button>
-
-
+                <button type="button">
+                    <a href="/user/photoSessions">Мои фотосессии</a>
+                </button>
+                <button type="button">
+                    <a href="/user/photoStudios">Фотостудии</a>
+                </button>
+                <button type="button">
+                    <a href="/user/portfolios">Фотографы</a>
+                </button>
+                <button type="button">
+                    <a href="/references">Вдохновение</a>
+                </button>
 
             </div>
+
         </div>
 
     </div>
 </div>
-<script>
-    var slideIndex = 1;
-    showSlides(slideIndex);
 
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex-1].style.display = "block";
-        dots[slideIndex-1].className += " active";
-    }
-</script>
 </body>
 </html>
-<h1>User</h1>
 
-
-<form action="<@spring.url '/logout'/>" method="post">
-    <input type="submit" value="Выйти">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-</form>

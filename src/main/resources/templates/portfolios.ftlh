@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль</title>
+    <title>Фотографы</title>
     <style>
         a {
             color: white;
@@ -178,46 +178,43 @@
             flex-direction: column;
             text-align: left;
         }
+        .avatar-img {
+            height: 70px;
+            width: 70px;
+            margin-right: 12px;
+            object-fit: cover;
+        }
 
     </style>
 </head>
 <body>
-<#import "/spring.ftl" as spring />
-<#include "headerForAuthorized.ftlh" />
+<#include "headerForAuthorized.ftlh">
 
 <div class="container">
 
     <div class="left_content">
-        <div class="button-container">
-            <button type="button"><a href="/admin/photoStudios/create">Добавить фотостудию</a></button>
-        </div>
-        <h1>Наши локации для фотосессий</h1>
-        <#if photoStudios?has_content>
-            <#list photoStudios as photoStudio>
-                <div class="photostudio-row">
-                    <a class="photostudio-card" href="/admin/photoStudios/${photoStudio.id}">
-                        ${photoStudio.address}: ${photoStudio.title}
-                    </a>
+        <h1>Портфолио фотографов</h1>
 
-                    <form action="<@spring.url '/admin/photoStudios/${photoStudio.id}'/>" method="post" class="delete-form">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                        <button type="submit" class="delete-button"
-                                onclick="return confirm('Вы уверены, что хотите удалить ${photoStudio.title} (${photoStudio.address})?');">
-                            Удалить
-                        </button>
-                    </form>
-                    <a class="delete-button" href="/admin/photoStudios/update/${photoStudio.id}">
-                        Изменить
-                    </a>
-                </div>
+        <#if photographers?has_content>
+            <#list photographers as photographer>
+                <a class="photostudio-card" href="/user/portfolios/${photographer.id}">
+                    <#if photographer.photos?has_content>
+                        <#assign firstPhoto = photographer.photos?first />
+                        <img src="${firstPhoto.imageUrl}" alt="Аватар" class="avatar-img">
+                    <#else>
+                        <img src="/default-avatar.png" alt="Аватар по умолчанию" class="avatar-img">
+                    </#if>
+                    <span>${photographer.lastName} ${photographer.firstName}</span>
+                </a>
+                <br/>
             </#list>
         <#else>
-            <p>Пока нет доступных фотостудий.</p>
+            <p>Пока нет доступных фотографов.</p>
         </#if>
+
     </div>
 
-</div>
 
+</div>
 </body>
 </html>

@@ -31,9 +31,10 @@ public class PhotoController {
     @GetMapping("/search-photos")
     public String searchPhotos(@RequestParam(value = "query", required = false, defaultValue = "nature") String query,
                                @RequestParam(value = "page", defaultValue = "0") int page,
-                               @RequestParam(value = "perPage", defaultValue = "10") int perPage,
+                               @RequestParam(value = "perPage", defaultValue = "12") int perPage,
                                Model model) {
         UnsplashSearchResponse response = unsplashService.searchPhotos(query, page+1, perPage);
+        System.out.println(query);
 
         if (response != null && response.getResults() != null) {
             model.addAttribute("photos", response.getResults());
@@ -43,6 +44,7 @@ public class PhotoController {
         } else {
             model.addAttribute("photos", Collections.emptyList());
             model.addAttribute("message", "No photos found or an error occurred. Check server logs.");
+            model.addAttribute("query", query);
         }
         return "photos";
     }
